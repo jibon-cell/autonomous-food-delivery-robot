@@ -68,13 +68,13 @@ Port City International University
 
 ## Robot Prototype
 
-![Robot](images/main robot.png)
+![Robot](images/mainrobot.png)
 
 ---
 
 ## Flowchart
 
-![Flowchart](images/flowchart.jpeg)
+![Flowchart](images/flow.jpeg)
 
 ---
 
