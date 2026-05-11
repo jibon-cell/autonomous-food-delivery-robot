@@ -68,7 +68,7 @@ Port City International University
 
 ## Robot Prototype
 
-![Robot](images/robot.jpeg)
+![Robot](images/main robot.jpeg)
 
 ---
 
