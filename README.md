@@ -66,6 +66,27 @@ Port City International University
 
 ---
 
+## Robot Prototype
+
+![Robot](images/robot.jpeg)
+
+---
+
+## Flowchart
+
+![Flowchart](images/flowchart.jpeg)
+
+---
+
+## System Architecture
+
+![Architecture](images/system_architecture.jpeg)
+
+---
+
+## Thesis PDF
+
+[Download Thesis](thesis.pdf)
 ## License
 
 MIT License
