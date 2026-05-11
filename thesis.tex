@@ -1,0 +1,3367 @@
+\documentclass[12pt,a4paper,oneside]{report}
+
+% =====================================================
+%                     PACKAGES
+% =====================================================
+
+\usepackage[a4paper,
+left=1.3in,
+right=1in,
+top=1in,
+bottom=1in]{geometry}
+
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tocloft}
+\usepackage{multicol}
+
+% =====================================================
+%                 HYPERLINK SETUP
+% =====================================================
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =====================================================
+%                 LINE SPACING
+% =====================================================
+
+\onehalfspacing
+
+% =====================================================
+%                 PAGE STYLE
+% =====================================================
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{Autonomous Food Delivery Robot}
+\fancyhead[R]{Peripheral Thesis Project}
+
+\fancyfoot[C]{\thepage}
+
+% =====================================================
+%                 CHAPTER STYLE
+% =====================================================
+
+\titleformat{\chapter}[display]
+{\bfseries\Huge}
+{\filleft\Large\chaptername\ \Huge\thechapter}
+{2ex}
+{\titlerule\vspace{2ex}\filright}
+[\vspace{2ex}\titlerule]
+
+% =====================================================
+%                 CODE STYLE
+% =====================================================
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+\lstset{
+    backgroundcolor=\color{white},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+
+% =====================================================
+%                   DOCUMENT START
+% =====================================================
+
+\begin{document}
+
+% =====================================================
+%                   COVER PAGE
+% =====================================================
+
+\begin{titlepage}
+
+\begin{center}
+
+\vspace*{0.8cm}
+
+% ===================== LOGO =====================
+
+\includegraphics[width=0.22\textwidth]{Port_City_International_University_Logo (1).png}
+
+\vspace{1cm}
+
+{\Huge \textbf{
+Design and Implementation of an Autonomous\\
+Line Following Food Delivery Robot\\
+for Smart Restaurant Services
+}}
+
+\vspace{1.5cm}
+
+{\Large \textbf{A Thesis Paper}}
+
+\vspace{0.5cm}
+
+Submitted to\\
+Department of Computer Science and Engineering\\
+Port City International University
+
+% =====================================================
+%               STUDENT INFORMATION
+% =====================================================
+
+\vspace{1.5cm}
+
+{\Large \textbf{Submitted By}}
+
+\vspace{0.8cm}
+
+\begin{center}
+
+\begin{tabular}{p{6cm} p{6cm}}
+
+\centering
+\textbf{Sreemanta Bonik}\\ &
+\centering
+\textbf{MD. Nayeemur Rashid} \\
+
+\centering
+ID: CSE-031 07977\\ &
+\centering
+ID: CSE-031 07972 \\&
+
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{tabular}{p{6cm}}
+
+\centering
+\textbf{Syed MD. Sabbir} \\
+
+\centering
+ID: CSE-031 07966\\
+
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{tabular}{p{6cm} p{6cm}}
+
+\centering
+\textbf{Apurbo Das} &
+\centering
+\textbf{MD. Anowar Hossain} \\
+
+\centering
+ID: 031 07985 &
+\centering
+ID: 031 08012 \\
+
+\end{tabular}
+
+\end{center}
+
+\vspace{1.5cm}
+% =====================================================
+%                  SUPERVISOR INFO
+% =====================================================
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\textbf{Supervisor:} & K. M. Tousif bin Parves \\
+\textbf{Designation:} & Lecturer \\
+\textbf{Department:} & Department of CSE \\
+\end{tabular}
+\end{table}
+
+\vfill
+
+{\Large 12 May 2026}
+
+\end{center}
+
+\end{titlepage}
+
+% =====================================================
+%                  DECLARATION
+% =====================================================
+
+\chapter*{Declaration}
+
+We hereby declare that the thesis titled:
+
+\begin{center}
+\textbf{
+“Design and Implementation of an Autonomous Line Following Food Delivery Robot for Smart Restaurant Services”
+}
+\end{center}
+
+is an original work carried out by us under the supervision of our respected supervisor. This thesis has not been submitted previously to any institution or university for the award of any degree or diploma.
+
+All information, references, and materials used in this research have been properly acknowledged.
+
+\vspace{2cm}
+
+\begin{flushright}
+\textbf{Sreemanta Bonik}
+\end{flushright}
+
+\newpage
+
+% =====================================================
+%                  CERTIFICATE
+% =====================================================
+
+\chapter*{Certificate}
+
+This is to certify that the thesis titled:
+
+\begin{center}
+\textbf{
+“Design and Implementation of an Autonomous Line Following Food Delivery Robot for Smart Restaurant Services”
+}
+\end{center}
+
+submitted by:
+
+\vspace{0.5cm}
+
+\textbf{Sreemanta Bonik}
+
+\vspace{0.5cm}
+
+has been successfully completed under my supervision and guidance in partial fulfillment of the requirements for the degree of Bachelor of Science in Computer Science and Engineering.
+
+\vspace{3cm}
+
+\begin{flushright}
+\textbf{Supervisor Signature}\\
+K. M. Tousif bin Parves\\
+Lecturer\\
+Department of CSE\\
+Port City International University
+\end{flushright}
+
+\newpage
+
+% =====================================================
+%                ACKNOWLEDGEMENT
+% =====================================================
+
+\chapter*{Acknowledgement}
+
+First and foremost, we express our sincere gratitude to Almighty Allah for granting us the strength, patience, and opportunity to complete this thesis successfully.
+
+We would like to express our heartfelt appreciation to our respected supervisor for his continuous support, valuable guidance, and technical assistance throughout the development of this project. His suggestions and encouragement played a vital role in completing this thesis successfully.
+
+We are also thankful to the Department of Computer Science and Engineering of Port City International University for providing laboratory facilities and academic support during the research work.
+
+Finally, we express our gratitude to our friends, classmates, and family members for their constant encouragement and support.
+
+\newpage
+
+% =====================================================
+%                    ABSTRACT
+% =====================================================
+
+\chapter*{Abstract}
+
+Automation and autonomous robotic systems are becoming increasingly important in modern industries and smart service sectors. Among these systems, autonomous line following robots are widely used in industrial transportation, warehouse management, hospital services, and restaurant automation.
+
+This thesis presents the design and implementation of an autonomous line following food delivery robot for smart restaurant services using a 5-channel infrared sensor array and Arduino Nano microcontroller. The proposed system is capable of following predefined paths autonomously while maintaining stable movement through real-time sensor feedback and PD-based error correction.
+
+The robot utilizes infrared sensors to detect black lines on a white surface. Based on sensor readings, the control algorithm continuously calculates positional errors and adjusts motor speed accordingly using proportional-derivative control logic. The hardware architecture consists of an Arduino Nano, L298N motor driver, N20 geared motors, lithium-ion battery system, and lightweight chassis.
+
+Experimental results demonstrate that the robot can efficiently navigate both straight and curved paths with improved stability and fast response time. The developed system offers a low-cost and energy-efficient solution suitable for smart restaurant automation and indoor autonomous delivery applications.
+
+\vspace{0.5cm}
+
+\textbf{Keywords:}
+Autonomous Robot,
+Line Following Robot,
+Arduino Nano,
+PD Control,
+Infrared Sensor,
+Restaurant Automation,
+Food Delivery Robot
+
+\newpage
+
+% =====================================================
+%              TABLE OF CONTENTS
+% =====================================================
+
+\tableofcontents
+
+\newpage
+
+% =====================================================
+%              LIST OF FIGURES
+% =====================================================
+
+\listoffigures
+
+\newpage
+
+% =====================================================
+%              LIST OF TABLES
+% =====================================================
+
+\listoftables
+
+\newpage
+
+% =====================================================
+%          LIST OF ABBREVIATIONS
+% =====================================================
+
+\chapter*{List of Abbreviations}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Abbreviation} & \textbf{Meaning} \\
+\midrule
+IR & Infrared \\
+PWM & Pulse Width Modulation \\
+PD & Proportional Derivative \\
+MCU & Microcontroller Unit \\
+RPM & Revolutions Per Minute \\
+IoT & Internet of Things \\
+PCB & Printed Circuit Board \\
+ADC & Analog to Digital Converter \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+% =====================================================
+%                 CHAPTER 1
+% =====================================================
+
+\chapter{Introduction}
+
+\section{Background}
+
+Autonomous robotic systems are rapidly transforming modern industries and service environments. These systems reduce human effort, improve operational efficiency, and enhance productivity through automated task execution. One of the most widely studied autonomous systems is the line following robot.
+
+A line following robot is an autonomous vehicle capable of detecting and following a predefined path using sensing technologies. These robots are commonly used in warehouse automation, industrial transportation, healthcare services, and smart restaurant systems.
+
+The increasing demand for contactless services and smart automation has created the need for autonomous food delivery systems in restaurants. Traditional food serving methods require human labor and may reduce operational efficiency during busy hours. Therefore, autonomous restaurant delivery robots can significantly improve service quality and reduce workload.
+
+This thesis focuses on the design and implementation of a low-cost autonomous food delivery robot using line following technology and PD-based control algorithms.
+
+% =====================================================
+%               PROBLEM STATEMENT
+% =====================================================
+
+\section{Problem Statement}
+
+Traditional restaurant food delivery systems rely heavily on human waiters and manual transportation methods. During peak operational periods, these methods may become inefficient, time-consuming, and prone to human error.
+
+Existing low-cost autonomous robots often suffer from poor stability, inaccurate line tracking, slow response time, and weak recovery mechanisms. Therefore, there is a need for a stable, efficient, and cost-effective autonomous food delivery robot capable of accurate indoor navigation.
+
+% =====================================================
+%                   OBJECTIVES
+% =====================================================
+
+\section{Objectives}
+
+The objectives of this thesis are:
+
+\begin{itemize}
+\item To design a low-cost autonomous food delivery robot.
+\item To implement line detection using a 5-channel IR sensor array.
+\item To develop a PD-based control algorithm for stable navigation.
+\item To reduce tracking error during movement.
+\item To achieve smooth turning and stable path following.
+\item To develop an autonomous line recovery mechanism.
+\item To evaluate robot performance under different track conditions.
+\end{itemize}
+
+% =====================================================
+%                 APPLICATIONS
+% =====================================================
+
+\section{Applications}
+
+The proposed system can be used in:
+
+\begin{itemize}
+\item Smart restaurant automation
+\item Indoor autonomous delivery systems
+\item Hospital medicine delivery
+\item Warehouse transportation
+\item Educational robotics
+\item Smart industrial automation
+\end{itemize}
+
+% =====================================================
+%                CHAPTER 2
+% =====================================================
+
+\chapter{Literature Review}
+
+Autonomous line following robots have been extensively studied in robotics research due to their wide range of applications in industrial automation and intelligent transportation systems.
+
+Infrared sensor-based navigation systems are widely preferred because of their low cost, fast response time, and simple implementation. Researchers have implemented different control algorithms such as proportional control, PID control, fuzzy logic, and computer vision techniques to improve robot stability and navigation accuracy.
+
+Several restaurant automation systems have recently been introduced using autonomous robots for food transportation. However, many existing systems are expensive and require advanced computational hardware.
+
+The proposed system focuses on developing a low-cost yet stable autonomous delivery robot suitable for indoor restaurant environments.
+
+% =====================================================
+%         COMPARATIVE ANALYSIS TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{Comparative Analysis of Existing Systems}
+\begin{tabular}{|c|c|c|c|}
+\hline
+System & Sensor Type & Controller & Limitation \\
+\hline
+Robot A & IR Sensor & Basic Logic & Unstable Turning \\
+Robot B & Camera & PID & High Cost \\
+Robot C & Ultrasonic & Fuzzy Logic & Complex Design \\
+Proposed System & 5 IR Array & PD Control & Low Cost \\
+\hline
+\end{tabular}
+\end{table}
+
+% =====================================================
+%                 CHAPTER 3
+% =====================================================
+
+\chapter{Proposed System}
+
+\section{Overview of the Proposed System}
+
+The proposed system is an autonomous line following food delivery robot designed for smart restaurant environments. The robot is capable of navigating predefined indoor paths autonomously using infrared sensing technology and real-time control algorithms.
+
+The primary objective of the system is to reduce human effort in restaurant food transportation by implementing an intelligent indoor delivery mechanism. The robot follows a black line on a white surface using a 5-channel infrared sensor array and continuously adjusts its movement using a proportional-derivative (PD) control algorithm.
+
+The complete system consists of the following major subsystems:
+
+\begin{itemize}
+\item Sensor Subsystem
+\item Control Unit
+\item Motor Driver Circuit
+\item Locomotion System
+\item Power Supply System
+\item Mechanical Chassis
+\end{itemize}
+
+The robot continuously detects the line position using IR sensors and computes the positional error relative to the center position. Based on the calculated error, the control system dynamically adjusts the speed of the left and right motors to maintain stable navigation.
+
+% =====================================================
+%             SYSTEM ARCHITECTURE
+% =====================================================
+
+\section{System Architecture}
+
+The architecture of the proposed robot consists of interconnected hardware and software modules responsible for sensing, processing, control, and movement.
+
+% =====================================================
+%           SYSTEM ARCHITECTURE FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{system_architecture1.jpeg}
+
+\caption{Overall System Architecture of the Proposed Autonomous Food Delivery Robot}
+
+\label{fig:system_architecture}
+
+\end{figure}
+
+The IR sensor array continuously detects the black navigation line. The sensor readings are transmitted to the Arduino Nano microcontroller where the PD control algorithm processes the data and calculates movement corrections.
+
+The Arduino Nano generates PWM control signals which are sent to the L298N motor driver module. The motor driver controls the direction and speed of the N20 geared motors according to the calculated correction values.
+
+The battery system supplies power to the entire robotic platform.
+
+% =====================================================
+%                 BLOCK DIAGRAM
+% =====================================================
+
+\section{Block Diagram}
+
+The block diagram of the proposed system illustrates the relationship between the sensing module, processing unit, motor driver, and locomotion system.
+
+% =====================================================
+%             BLOCK DIAGRAM FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{system_architecture.jpeg}
+
+\caption{Functional Block Diagram of the Proposed System}
+
+\end{figure}
+
+The major functional blocks are described below:
+
+\subsection{IR Sensor Array}
+
+The 5-channel infrared sensor array detects the contrast between black and white surfaces using reflected infrared light intensity.
+
+\subsection{Arduino Nano}
+
+The Arduino Nano serves as the central processing unit of the robot. It processes sensor data and executes the PD control algorithm.
+
+\subsection{Motor Driver}
+
+The L298N motor driver controls the direction and speed of the motors using PWM signals from the Arduino Nano.
+
+\subsection{Motors and Wheels}
+
+Two N20 geared motors are used for differential drive movement. The wheels are attached directly to the motor shafts.
+
+\subsection{Power Supply System}
+
+Two lithium-ion batteries provide power to the motors, sensors, and control circuitry.
+
+% =====================================================
+%              WORKING PRINCIPLE
+% =====================================================
+
+\section{Working Principle}
+
+The working principle of the robot is based on real-time line detection and dynamic motor speed correction.
+
+Initially, the IR sensor array continuously scans the surface beneath the robot. When the sensors detect the black line, the reflected infrared intensity decreases. The sensor readings are analyzed by the Arduino Nano to determine the relative position of the line.
+
+If the robot deviates from the center position, the control algorithm calculates the positional error and generates correction values. The left and right motor speeds are adjusted dynamically to steer the robot back toward the line.
+
+The robot also contains an autonomous recovery mechanism. If the line is temporarily lost, the robot attempts to recover the line based on the previously detected direction.
+
+% =====================================================
+%            NAVIGATION MECHANISM
+% =====================================================
+
+\section{Navigation Mechanism}
+
+The navigation system of the robot is based on differential drive motion control. The turning mechanism is achieved by varying the rotational speeds of the left and right motors.
+
+The navigation process can be summarized as follows:
+
+\begin{enumerate}
+\item Detect line position using IR sensors
+\item Calculate positional error
+\item Apply PD correction
+\item Adjust motor speed dynamically
+\item Maintain stable line tracking
+\item Recover line if detection fails
+\end{enumerate}
+
+The robot continuously repeats this process in real-time during operation.
+
+% =====================================================
+%             SENSOR POSITIONING
+% =====================================================
+
+\section{Sensor Positioning}
+
+The 5-channel IR sensor array is mounted at the front-bottom section of the robot chassis to ensure accurate line detection.
+
+The sensors are positioned evenly with small spacing between adjacent sensors to improve detection accuracy and turning response.
+
+% =====================================================
+%          SENSOR POSITION FIGURE
+% =====================================================
+
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{Positioning of the IR Sensor Array.png}
+\caption{Positioning of the IR Sensor Array}
+
+\end{figure}
+
+Proper sensor alignment is essential for stable navigation and accurate path tracking.
+
+% =====================================================
+%            POWER DISTRIBUTION
+% =====================================================
+
+\section{Power Distribution System}
+
+The robot uses two lithium-ion batteries connected to provide stable voltage and sufficient current for the motors and control circuitry.
+
+The power distribution system supplies energy to:
+
+\begin{itemize}
+\item Arduino Nano
+\item L298N Motor Driver
+\item IR Sensor Array
+\item N20 Motors
+\end{itemize}
+
+A power switch is used to control the entire system operation.
+
+% =====================================================
+%           POWER DISTRIBUTION FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{power.jpeg}
+\caption{Power Distribution System of the Robot}
+
+\end{figure}
+
+% =====================================================
+%          ADVANTAGES OF THE SYSTEM
+% =====================================================
+
+\section{Advantages of the Proposed System}
+
+The proposed autonomous food delivery robot offers several advantages:
+
+\begin{itemize}
+\item Low-cost implementation
+\item Compact mechanical design
+\item Stable line tracking
+\item Fast response time
+\item Real-time error correction
+\item Autonomous navigation capability
+\item Easy maintenance
+\item Low power consumption
+\end{itemize}
+
+% =====================================================
+%          SUMMARY OF THE CHAPTER
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter discussed the proposed autonomous food delivery robot system including its architecture, functional blocks, navigation mechanism, sensor positioning, and power distribution system.
+
+The next chapter describes the detailed methodology and control algorithm used for autonomous navigation and line tracking.
+
+% =====================================================
+%                 CHAPTER 4
+% =====================================================
+
+\chapter{Methodology}
+
+\section{Introduction}
+
+This chapter describes the complete methodology used for designing and implementing the autonomous line following food delivery robot. The methodology includes sensor data acquisition, line detection mechanism, error calculation, PD control implementation, motor speed adjustment, and autonomous recovery techniques.
+
+The proposed robot follows a black line on a white surface using a 5-channel infrared sensor array and dynamically adjusts its movement using a proportional-derivative control algorithm.
+
+% =====================================================
+%               SYSTEM FLOWCHART
+% =====================================================
+
+\section{System Flowchart}
+
+The operational workflow of the robot is illustrated in the following flowchart.
+
+% =====================================================
+%                FLOWCHART FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{flow.jpeg}
+
+\caption{Operational Flowchart of the Autonomous Delivery Robot}
+
+\end{figure}
+
+The robot continuously repeats the sensing and correction process during operation to maintain stable navigation.
+
+% =====================================================
+%             SENSOR READING PROCESS
+% =====================================================
+
+\section{Sensor Reading Process}
+
+The robot uses a 5-channel infrared sensor array to detect the black navigation line. Each sensor emits infrared light toward the surface and measures the reflected intensity.
+
+When the sensor detects a white surface, the reflected infrared intensity becomes high. Conversely, when the sensor detects a black surface, the reflected intensity decreases significantly.
+
+The Arduino Nano continuously reads analog values from all five sensors to determine the relative position of the line.
+
+The sensor array configuration is shown below.
+
+% =====================================================
+%            SENSOR ARRAY FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{5 array ir.jpeg}
+\caption{5-Channel IR Sensor Array Configuration}
+
+\end{figure}
+
+% =====================================================
+%             LINE DETECTION METHOD
+% =====================================================
+
+\section{Line Detection Method}
+
+The robot identifies the black line by comparing sensor readings against a predefined threshold value.
+
+If the sensor reading becomes lower than the threshold value, the corresponding sensor is considered to be detecting the black line.
+
+The line position is determined by calculating the weighted average of active sensor positions.
+
+The weighted position calculation improves navigation accuracy and enables smoother turning performance.
+
+% =====================================================
+%             SENSOR CALIBRATION
+% =====================================================
+
+\section{Sensor Calibration}
+
+Sensor calibration is essential for improving line detection accuracy and reducing noise sensitivity.
+
+During initialization, the robot automatically reads multiple sensor values to determine the center position of the line.
+
+The average sensor position is calculated as:
+
+:contentReference[oaicite:0]{index=0}
+
+The calibrated center position is stored and later used for error calculation.
+
+% =====================================================
+%             ERROR CALCULATION
+% =====================================================
+
+\section{Error Calculation}
+
+The positional error is calculated by comparing the current line position with the calibrated center position.
+
+The error equation is expressed as:
+
+:contentReference[oaicite:1]{index=1}
+
+If the robot deviates toward the left side, the error becomes negative. Similarly, if the robot deviates toward the right side, the error becomes positive.
+
+The calculated error is continuously updated during robot operation.
+
+% =====================================================
+%             PD CONTROL ALGORITHM
+% =====================================================
+
+\section{PD Control Algorithm}
+
+The robot utilizes a proportional-derivative (PD) control algorithm to reduce tracking error and improve movement stability.
+
+The proportional term provides immediate correction according to the current error, while the derivative term minimizes oscillation by considering the rate of error change.
+
+The PD control equation is given by:
+
+:contentReference[oaicite:2]{index=2}
+
+Where:
+
+\begin{itemize}
+\item \(u(t)\) = Control output
+\item \(K_p\) = Proportional gain
+\item \(K_d\) = Derivative gain
+\item \(e(t)\) = Current error
+\end{itemize}
+
+The PD controller improves the response speed and reduces unnecessary oscillation during turning.
+
+% =====================================================
+%             MOTOR SPEED CONTROL
+% =====================================================
+
+\section{Motor Speed Control}
+
+The speed of the left and right motors is adjusted dynamically based on the correction value generated by the PD controller.
+
+The left and right motor speed equations are:
+
+:contentReference[oaicite:3]{index=3}
+
+:contentReference[oaicite:4]{index=4}
+
+When the robot deviates toward one side, the motor speeds are adjusted asymmetrically to steer the robot back toward the center line.
+
+Pulse Width Modulation (PWM) signals generated by the Arduino Nano are used for speed control.
+
+% =====================================================
+%             MOTOR DRIVER OPERATION
+% =====================================================
+
+\section{Motor Driver Operation}
+
+The L298N motor driver module controls the direction and speed of the motors according to the PWM signals received from the Arduino Nano.
+
+The driver module performs the following operations:
+
+\begin{itemize}
+\item Forward movement
+\item Left turning
+\item Right turning
+\item Speed adjustment
+\item Direction control
+\end{itemize}
+
+The use of PWM allows smooth acceleration and stable navigation.
+
+% =====================================================
+%             LINE RECOVERY SYSTEM
+% =====================================================
+
+\section{Autonomous Line Recovery Mechanism}
+
+During operation, the robot may temporarily lose the navigation line due to sharp turns or sensor misalignment.
+
+To solve this issue, an autonomous recovery mechanism is implemented.
+
+If no sensor detects the line, the robot attempts to recover the line by rotating toward the previously detected direction.
+
+The robot stores the last known direction of the line and uses that information for recovery.
+
+This mechanism significantly improves navigation reliability and reduces path loss failure.
+
+% =====================================================
+%                 ALGORITHM
+% =====================================================
+
+\section{Algorithm}
+
+The complete operational algorithm of the robot is described below:
+
+\begin{enumerate}
+
+\item Initialize sensors and motors
+
+\item Read analog values from the IR sensor array
+
+\item Detect line position
+
+\item Calculate positional error
+
+\item Apply PD control equation
+
+\item Generate correction value
+
+\item Adjust left and right motor speeds
+
+\item Move robot according to corrected speed
+
+\item Detect line loss condition
+
+\item Apply autonomous recovery mechanism if necessary
+
+\item Repeat continuously
+
+\end{enumerate}
+
+% =====================================================
+%           METHODOLOGY ADVANTAGES
+% =====================================================
+
+\section{Advantages of the Proposed Methodology}
+
+The proposed methodology provides several advantages:
+
+\begin{itemize}
+
+\item Real-time line tracking
+
+\item Improved navigation stability
+
+\item Reduced oscillation
+
+\item Fast response time
+
+\item Low computational complexity
+
+\item Efficient line recovery mechanism
+
+\item Low-cost implementation
+
+\end{itemize}
+
+% =====================================================
+%             CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter presented the complete methodology used in the proposed autonomous food delivery robot including sensor reading, line detection, PD control implementation, motor control, and autonomous recovery mechanisms.
+
+The next chapter discusses the hardware components and implementation details of the robotic system.
+
+% =====================================================
+%                 CHAPTER 5
+% =====================================================
+
+\chapter{Hardware Components and Implementation}
+
+\section{Introduction}
+
+This chapter describes the hardware components used in the development of the autonomous line following food delivery robot. The implementation details of the mechanical structure, electronic circuitry, motor system, sensor placement, and power distribution are also discussed.
+
+The hardware system was designed with the objectives of low cost, compact size, energy efficiency, and stable autonomous navigation.
+
+% =====================================================
+%            HARDWARE OVERVIEW
+% =====================================================
+
+\section{Hardware Overview}
+
+The robot consists of several integrated hardware modules responsible for sensing, processing, movement, and power management.
+
+The major hardware components include:
+
+\begin{itemize}
+
+\item Arduino Nano Microcontroller
+
+\item 5-Channel IR Sensor Array
+
+\item L298N Motor Driver Module
+
+\item N20 Geared Motors
+
+\item Robot Chassis
+
+\item Wheels and Caster Wheel
+
+\item Lithium-Ion Battery System
+
+\item Power Switch and Wiring
+
+\end{itemize}
+
+% =====================================================
+%           COMPONENT TABLE
+% =====================================================
+
+\section{Component List and Cost Analysis}
+
+The hardware components and their corresponding costs are listed below.
+
+% =====================================================
+%           COST ANALYSIS TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{Hardware Components and Cost Analysis}
+
+\begin{tabular}{|c|l|c|c|}
+\hline
+
+\textbf{SL} &
+\textbf{Component} &
+\textbf{Quantity} &
+\textbf{Cost (BDT)} \\
+
+\hline
+
+1 & Arduino Nano & 1 & 380 \\
+
+2 & 5 Channel IR Sensor Array & 1 & 280 \\
+
+3 & L298N Motor Driver & 1 & 180 \\
+
+4 & N20 Motor & 2 & 700 \\
+
+5 & Wheel & 2 & 160 \\
+
+6 & Chassis Board & 1 & 150 \\
+
+7 & Battery & 2 & 200 \\
+
+8 & Battery Holder & 1 & 40 \\
+
+9 & Switch & 1 & 10 \\
+
+10 & Motor Mounting Bracket & 2 & 50 \\
+
+11 & Caster Wheel & 1 & 80 \\
+
+12 & Jumper Wire & 2 & 50 \\
+
+\hline
+
+\multicolumn{3}{|c|}{\textbf{Total Cost}} &
+\textbf{2280 BDT} \\
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+The total hardware cost of the robot is comparatively low, making the system suitable for educational and low-budget automation applications.
+
+% =====================================================
+%           ARDUINO NANO
+% =====================================================
+
+\section{Arduino Nano Microcontroller}
+
+The Arduino Nano serves as the central processing unit of the robot. It processes sensor data, executes the PD control algorithm, and generates motor control signals.
+
+The Arduino Nano was selected because of its compact size, low power consumption, and sufficient GPIO pins for sensor and motor interfacing.
+
+Key features of the Arduino Nano include:
+
+\begin{itemize}
+
+\item ATmega328P Microcontroller
+
+\item Compact Design
+
+\item Analog and Digital I/O Pins
+
+\item PWM Output Support
+
+\item USB Programming Interface
+
+\item Low Power Consumption
+
+\end{itemize}
+
+% =====================================================
+%        ARDUINO IMAGE PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{ardiuno nano.jpeg}
+
+\caption{Arduino Nano Microcontroller Used in the Robot}
+
+\end{figure}
+
+% =====================================================
+%           IR SENSOR ARRAY
+% =====================================================
+
+\section{5-Channel IR Sensor Array}
+
+The robot uses a 5-channel infrared sensor array for line detection.
+
+Each sensor emits infrared light toward the surface and measures the reflected intensity. Black surfaces absorb more infrared light, while white surfaces reflect more light.
+
+The sensor array continuously detects the relative position of the black navigation line.
+
+Advantages of the 5-channel sensor array include:
+
+\begin{itemize}
+
+\item Improved line detection accuracy
+
+\item Better turning response
+
+\item Enhanced path stability
+
+\item Faster error correction
+
+\end{itemize}
+
+% =====================================================
+%       IR SENSOR IMAGE PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{5 sensor.jpeg}
+\caption{5-Channel Infrared Sensor Array}
+
+\end{figure}
+
+% =====================================================
+%           MOTOR DRIVER
+% =====================================================
+
+\section{L298N Motor Driver Module}
+
+The L298N motor driver module controls the direction and speed of the DC motors.
+
+The module receives PWM and direction signals from the Arduino Nano and drives the motors accordingly.
+
+The motor driver performs the following operations:
+
+\begin{itemize}
+
+\item Forward Movement
+
+\item Reverse Movement
+
+\item Left Turning
+
+\item Right Turning
+
+\item Speed Adjustment
+
+\end{itemize}
+
+The L298N module was selected because of its simplicity, availability, and compatibility with Arduino platforms.
+
+% =====================================================
+%      MOTOR DRIVER IMAGE PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{motor driver.jpeg}
+
+\caption{L298N Motor Driver Module}
+
+\end{figure}
+
+% =====================================================
+%           N20 DC MOTOR
+% =====================================================
+
+\section{N20 DC Motors}
+
+Two N20 DC motors are used for differential drive movement.
+
+These motors provide sufficient torque and stable rotational speed for indoor navigation.
+
+Advantages of N20 DC motors include:
+
+\begin{itemize}
+
+\item Compact size
+
+\item High torque
+
+\item Low power consumption
+
+\item Stable movement
+
+\item Lightweight design
+
+\end{itemize}
+
+The motors are connected directly to the wheels for robot movement.
+
+% =====================================================
+%         MOTOR IMAGE PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{DC motor.jpeg}
+
+\caption{N20 DC Motor}
+
+\end{figure}
+
+% =====================================================
+%           CHASSIS DESIGN
+% =====================================================
+
+\section{Robot Chassis Design}
+
+The chassis acts as the structural platform of the robot.
+
+A lightweight perforated board was used to build the chassis. The motors were attached using metal mounting brackets and the sensor array was positioned at the front-bottom section.
+
+The compact design improves balance, movement stability, and maneuverability.
+
+% =====================================================
+%      CHASSIS IMAGE PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{pcb board.png}
+
+\caption{Mechanical Chassis Structure of the Robot}
+
+\end{figure}
+
+% =====================================================
+%           WHEEL SYSTEM
+% =====================================================
+
+\section{Wheel and Locomotion System}
+
+The robot uses a differential drive locomotion mechanism consisting of:
+
+\begin{itemize}
+
+\item Two driving wheels
+
+\item One caster wheel
+
+\end{itemize}
+
+The left and right wheels are connected to the N20 motors, while the caster wheel provides support and movement balance.
+
+The turning mechanism is achieved by varying the rotational speeds of the left and right motors.
+
+% =====================================================
+%          LOCOMOTION FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{wheel.jpeg}
+
+\caption{Differential Drive Wheel Mechanism}
+
+\end{figure}
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{c w.jpeg}
+
+\caption{Caster Wheel Mechanism}
+
+\end{figure}
+
+% =====================================================
+%           BATTERY SYSTEM
+% =====================================================
+
+\section{Battery and Power Supply System}
+
+The robot uses two lithium-ion batteries as the primary power source.
+
+The battery system supplies power to:
+
+\begin{itemize}
+
+\item Arduino Nano
+
+\item Motor Driver
+
+\item IR Sensor Array
+
+\item N20 Motors
+
+\end{itemize}
+
+A dedicated power switch is used to control the power supply of the robot.
+
+The battery system was designed to provide stable voltage and sufficient current during operation.
+
+% =====================================================
+%        BATTERY IMAGE PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{b.case.jpeg}
+\caption{Battery and Power Supply System}
+
+\end{figure}
+
+% =====================================================
+%           CIRCUIT DIAGRAM
+% =====================================================
+
+\section{Circuit Diagram}
+
+The complete circuit diagram illustrates the connections between the Arduino Nano, IR sensor array, motor driver module, motors, and battery system.
+
+% =====================================================
+%       CIRCUIT DIAGRAM PLACEHOLDER
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{circuit .jpeg}
+
+\caption{Complete Circuit Diagram of the Proposed Robot}
+
+\end{figure}
+
+% =====================================================
+%           HARDWARE CONNECTIONS
+% =====================================================
+
+\section{Hardware Connections}
+
+The following hardware connections were implemented:
+
+\begin{itemize}
+
+\item IR Sensors connected to analog pins A0--A4
+
+\item Motor driver connected to PWM pins
+
+\item Motors connected to L298N outputs
+
+\item Battery connected to motor driver power input
+
+\item Arduino connected to sensor and motor control lines
+
+\end{itemize}
+
+Proper wiring and secure connections were maintained to reduce signal noise and voltage fluctuation.
+
+% =====================================================
+%         IMPLEMENTATION CHALLENGES
+% =====================================================
+
+\section{Hardware Implementation Challenges}
+
+Several challenges were encountered during hardware implementation:
+
+\begin{itemize}
+
+\item Sensor alignment issues
+
+\item Motor speed mismatch
+
+\item Power fluctuation during turning
+
+\item Chassis balancing problems
+
+\item Wiring management difficulties
+
+\end{itemize}
+
+These issues were minimized through repeated testing and calibration.
+
+% =====================================================
+%           CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter discussed the hardware components and implementation details of the proposed autonomous food delivery robot including the microcontroller, sensors, motor driver, locomotion system, power supply, and circuit connections.
+
+The next chapter presents the software implementation and control algorithm used for autonomous navigation.
+
+
+% =====================================================
+%                 CHAPTER 6
+% =====================================================
+
+\chapter{Software Implementation}
+
+\section{Introduction}
+
+This chapter discusses the software implementation of the proposed autonomous line following food delivery robot. The software system is responsible for sensor data acquisition, line detection, error calculation, PD control implementation, motor speed adjustment, and autonomous recovery operations.
+
+The entire control system was developed using the Arduino IDE and Embedded C/C++ programming language.
+
+% =====================================================
+%           SOFTWARE OVERVIEW
+% =====================================================
+
+\section{Software Overview}
+
+The software architecture of the robot was designed to provide real-time autonomous navigation and stable line tracking performance.
+
+The major software operations include:
+
+\begin{itemize}
+
+\item Sensor Initialization
+
+\item Sensor Data Reading
+
+\item Line Position Detection
+
+\item Error Calculation
+
+\item PD Control Processing
+
+\item PWM Speed Control
+
+\item Motor Direction Control
+
+\item Autonomous Recovery Operation
+
+\end{itemize}
+
+The software continuously executes these operations in a loop during robot movement.
+
+% =====================================================
+%           SOFTWARE ARCHITECTURE
+% =====================================================
+
+\section{Software Architecture}
+
+The software architecture of the proposed system is illustrated below.
+
+% =====================================================
+%       SOFTWARE ARCHITECTURE FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{software architecture.jpeg}
+
+\caption{Software Architecture of the Proposed System}
+
+\end{figure}
+
+The architecture consists of sensor processing modules, control algorithms, and motor control subsystems.
+
+% =====================================================
+%            ARDUINO IDE
+% =====================================================
+
+\section{Arduino IDE}
+
+The Arduino Integrated Development Environment (IDE) was used to write, compile, and upload the control program to the Arduino Nano.
+
+The Arduino IDE provides several advantages:
+
+\begin{itemize}
+
+\item User-friendly interface
+
+\item Embedded C/C++ support
+
+\item Serial monitoring tools
+
+\item Library management support
+
+\item Easy debugging functionality
+
+\end{itemize}
+
+% =====================================================
+%           PIN CONFIGURATION
+% =====================================================
+
+\section{Pin Configuration}
+
+The Arduino Nano pins were configured according to the hardware requirements of the robot.
+
+The sensor array was connected to analog input pins while the motor driver was connected to PWM-enabled digital pins.
+
+% =====================================================
+%        PIN CONFIGURATION TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{Arduino Nano Pin Configuration}
+
+\begin{tabular}{|c|c|}
+\hline
+
+\textbf{Component} &
+\textbf{Arduino Pin} \\
+
+\hline
+
+IR Sensor 1 & A0 \\
+
+IR Sensor 2 & A1 \\
+
+IR Sensor 3 & A2 \\
+
+IR Sensor 4 & A3 \\
+
+IR Sensor 5 & A4 \\
+
+Motor Driver ENA & D5 \\
+
+Motor Driver ENB & D3 \\
+
+Motor Driver IN1 & D11 \\
+
+Motor Driver IN2 & D13 \\
+
+Motor Driver IN3 & D12 \\
+
+Motor Driver IN4 & D10 \\
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+% =====================================================
+%            SENSOR PROCESSING
+% =====================================================
+
+\section{Sensor Data Processing}
+
+The software continuously reads analog values from the 5-channel IR sensor array.
+
+The sensor readings are stored in an array for further processing.
+
+The software identifies the line position by comparing sensor values against a predefined threshold value.
+
+If the sensor value becomes lower than the threshold, the sensor is considered to detect the black line.
+
+This process enables accurate line position estimation.
+
+% =====================================================
+%           LINE POSITION DETECTION
+% =====================================================
+
+\section{Line Position Detection}
+
+The line position is calculated using a weighted average method.
+
+The weighted average calculation improves navigation accuracy and allows smoother turning performance.
+
+The line position equation is given below:
+
+:contentReference[oaicite:0]{index=0}
+
+The center position is predefined during sensor calibration.
+
+% =====================================================
+%           SENSOR CALIBRATION
+% =====================================================
+
+\section{Sensor Calibration Process}
+
+The robot performs automatic sensor calibration during initialization.
+
+The calibration process determines the average center position of the line and reduces environmental noise effects.
+
+The calibration steps are:
+
+\begin{enumerate}
+
+\item Read multiple sensor values
+
+\item Calculate average line position
+
+\item Determine center offset
+
+\item Store calibration values
+
+\end{enumerate}
+
+The calibration process improves overall tracking stability.
+
+% =====================================================
+%           ERROR PROCESSING
+% =====================================================
+
+\section{Error Processing}
+
+The software continuously calculates the positional error by comparing the detected line position with the center reference position.
+
+The error equation is expressed as:
+
+:contentReference[oaicite:1]{index=1}
+
+The error value determines whether the robot should move left, right, or forward.
+
+% =====================================================
+%             PD CONTROLLER
+% =====================================================
+
+\section{PD Controller Implementation}
+
+The robot uses a proportional-derivative controller to improve navigation stability and reduce oscillation.
+
+The PD control equation is:
+
+:contentReference[oaicite:2]{index=2}
+
+Where:
+
+\begin{itemize}
+
+\item \(K_p\) = Proportional Gain
+
+\item \(K_d\) = Derivative Gain
+
+\item \(e(t)\) = Current Error
+
+\end{itemize}
+
+The PD controller dynamically generates correction values for motor speed adjustment.
+
+% =====================================================
+%           MOTOR CONTROL LOGIC
+% =====================================================
+
+\section{Motor Control Logic}
+
+The software adjusts the motor speeds dynamically according to the correction values generated by the PD controller.
+
+The motor speed equations are:
+
+:contentReference[oaicite:3]{index=3}
+
+:contentReference[oaicite:4]{index=4}
+
+PWM signals generated by the Arduino Nano control the speed of the motors.
+
+% =====================================================
+%           PWM CONTROL
+% =====================================================
+
+\section{PWM Speed Control}
+
+Pulse Width Modulation (PWM) was used to control the rotational speed of the motors.
+
+The PWM technique allows smooth acceleration, efficient power utilization, and precise speed control.
+
+Advantages of PWM control include:
+
+\begin{itemize}
+
+\item Smooth speed adjustment
+
+\item Reduced power loss
+
+\item Better navigation stability
+
+\item Efficient motor control
+
+\end{itemize}
+
+% =====================================================
+%         LINE RECOVERY MECHANISM
+% =====================================================
+
+\section{Autonomous Recovery Mechanism}
+
+The robot includes an autonomous line recovery mechanism to handle temporary line loss situations.
+
+If all sensors fail to detect the line, the robot rotates toward the last known line direction until the line is detected again.
+
+The recovery process improves operational reliability and minimizes navigation failure.
+
+% =====================================================
+%            SOFTWARE ALGORITHM
+% =====================================================
+
+\section{Software Algorithm}
+
+The software algorithm executed by the robot is described below.
+
+\begin{enumerate}
+
+\item Initialize all sensors and motors
+
+\item Perform sensor calibration
+
+\item Read sensor values continuously
+
+\item Detect line position
+
+\item Calculate positional error
+
+\item Apply PD correction
+
+\item Generate motor adjustment values
+
+\item Control motor speed and direction
+
+\item Detect line loss condition
+
+\item Recover line automatically
+
+\item Repeat continuously
+
+\end{enumerate}
+
+% =====================================================
+%            PSEUDOCODE
+% =====================================================
+
+\section{Pseudocode}
+
+\begin{verbatim}
+
+START
+
+Initialize Sensors
+Initialize Motors
+
+Calibrate Sensors
+
+WHILE Robot is Running
+
+   Read Sensor Values
+
+   Detect Line Position
+
+   Calculate Error
+
+   Apply PD Controller
+
+   Generate Correction Value
+
+   Adjust Motor Speeds
+
+   IF Line Lost THEN
+
+      Recover Previous Direction
+
+   ENDIF
+
+ENDWHILE
+
+STOP
+
+\end{verbatim}
+
+% =====================================================
+%         SOURCE CODE IMPLEMENTATION
+% =====================================================
+
+\section{Source Code Implementation}
+
+The complete source code of the robot was written in Embedded C/C++ using the Arduino framework.
+
+The implementation includes:
+
+\begin{itemize}
+
+\item Sensor reading functions
+
+\item Error calculation functions
+
+\item PD control functions
+
+\item PWM motor control functions
+
+\item Autonomous recovery functions
+
+\end{itemize}
+
+The complete source code is provided in the Appendix section.
+
+% =====================================================
+%        SOFTWARE IMPLEMENTATION FIGURE
+% =====================================================
+
+% =====================================================
+%         SOURCE CODE IMPLEMENTATION
+% =====================================================
+
+\section{Source Code Implementation}
+
+The following program was implemented using Arduino IDE for autonomous line following and PD-based motor control.
+
+\begin{lstlisting}[language=C++, caption={Arduino Source Code for Autonomous Food Delivery Robot}]
+
+#define IN1 11
+#define IN2 13
+#define ENA 5
+#define IN3 12
+#define IN4 10
+#define ENB 3
+#define num_sensors 5
+
+int sensor_pins[num_sensors] = {A0, A1, A2, A3, A4};
+int sValues[num_sensors];
+int base_speed = 150;
+int max_speed = 220;
+int turn_speed = 90;
+float kp = 0.08;
+float kd = 0.2;
+int prev_error = 0;
+int last_side = 0;
+int center_offset = 0;
+bool calibrated = false;
+
+void setup() {
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT); pinMode(ENA, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT); pinMode(ENB, OUTPUT);
+  for (int i = 0; i < num_sensors; i++) {
+    pinMode(sensor_pins[i], INPUT);
+  }
+  Serial.begin(9600);
+  
+  calibrate_center();
+}
+
+void calibrate_center() {
+  long sum = 0;
+  int count = 0;
+  
+  for(int t=0; t<50; t++) {
+    long temp_sum = 0;
+    long temp_weight = 0;
+    int temp_count = 0;
+    
+    for (int i = 0; i < num_sensors; i++) {
+      int val = analogRead(sensor_pins[i]);
+      if (val < 450) {
+        temp_sum += (i * 1000);
+        temp_weight += 1000;
+        temp_count++;
+      }
+    }
+    
+    if(temp_count > 0) {
+      int pos = temp_sum / temp_weight;
+      sum += pos;
+      count++;
+    }
+    delay(5);
+  }
+  
+  if(count > 0) {
+    int avg_pos = sum / count;
+    center_offset = avg_pos - 2000;
+  }
+  
+  calibrated = true;
+}
+
+void loop() {
+  if(calibrated) {
+    line_follow();
+  }
+}
+
+int read_sensors() {
+  long sum = 0;
+  long weight = 0;
+  int count = 0;
+  
+  for (int i = 0; i < num_sensors; i++) {
+    int val = analogRead(sensor_pins[i]);
+    sValues[i] = val;
+    
+    if (val < 450) {
+      sum += (i * 1000);
+      weight += 1000;
+      count++;
+    }
+  }
+  
+  if (count == 0) return -999;
+  if (count == 5) return 9999;
+  
+  if (sValues[0] < 450) last_side = -1;
+  if (sValues[4] < 450) last_side = 1;
+  
+  int linePos = sum / weight;
+  return (linePos - 2000 - center_offset);
+}
+
+void line_follow() {
+  int error = read_sensors();
+  
+  if (error == -999) {
+    if (last_side == -1) {
+      motor_drive(-turn_speed, turn_speed);
+    } else {
+      motor_drive(turn_speed, -turn_speed);
+    }
+    return;
+  }
+  
+  if (error == 9999) {
+    motor_drive(base_speed, base_speed);
+    return;
+  }
+  
+  int adjusted_error = error;
+  if(abs(error) < 200) {
+    adjusted_error = 0;
+  } else if(abs(error) < 400) {
+    adjusted_error = error * 0.5;
+  }
+  
+  float P = adjusted_error;
+  float D = (adjusted_error - prev_error) * 0.6;
+  int adjustment = (int)((kp * P) + (kd * D));
+  prev_error = adjusted_error;
+  
+  adjustment = constrain(adjustment, -50, 50);
+  
+  int left = base_speed + adjustment;
+  int right = base_speed - adjustment;
+  
+  left = constrain(left, 80, max_speed);
+  right = constrain(right, 80, max_speed);
+  
+  motor_drive(left, right);
+}
+
+void motor_drive(int leftSpeed, int rightSpeed) {
+  leftSpeed = constrain(leftSpeed, -max_speed, max_speed);
+  rightSpeed = constrain(rightSpeed, -max_speed, max_speed);
+  
+  if (leftSpeed >= 0) {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, HIGH);
+  } else {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+  }
+  analogWrite(ENA, abs(leftSpeed));
+  
+  if (rightSpeed >= 0) {
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
+  } else {
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+  }
+  analogWrite(ENB, abs(rightSpeed));
+}
+
+\end{lstlisting}
+
+% =====================================================
+%          SOFTWARE ADVANTAGES
+% =====================================================
+
+\section{Advantages of the Software System}
+
+The developed software system provides several advantages:
+
+\begin{itemize}
+
+\item Real-time operation
+
+\item Fast response time
+
+\item Stable navigation
+
+\item Low computational complexity
+
+\item Efficient line recovery
+
+\item Smooth motor control
+
+\item Easy modification and scalability
+
+\end{itemize}
+
+% =====================================================
+%          SOFTWARE LIMITATIONS
+% =====================================================
+
+\section{Software Limitations}
+
+Although the software system performs effectively, several limitations still exist.
+
+\begin{itemize}
+
+\item Sensitivity to environmental lighting
+
+\item Limited obstacle handling capability
+
+\item Fixed threshold dependence
+
+\item No machine learning integration
+
+\end{itemize}
+
+Future improvements may overcome these limitations.
+
+% =====================================================
+%             CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter presented the software implementation and control logic of the proposed autonomous food delivery robot including sensor processing, PD controller implementation, PWM motor control, and autonomous recovery mechanisms.
+
+The next chapter discusses the mathematical analysis and performance evaluation of the proposed system.
+
+% =====================================================
+%                 CHAPTER 7
+% =====================================================
+
+\chapter{Mathematical Analysis and Control System}
+
+\section{Introduction}
+
+This chapter presents the mathematical analysis and control system used in the proposed autonomous line following food delivery robot. The mathematical model includes line position estimation, error calculation, proportional-derivative (PD) control analysis, motor speed correction, and navigation stability evaluation.
+
+The purpose of the control system is to minimize positional error and maintain stable autonomous navigation under different track conditions.
+
+% =====================================================
+%         CONTROL SYSTEM OVERVIEW
+% =====================================================
+
+\section{Control System Overview}
+
+The robot uses a closed-loop feedback control system for autonomous navigation.
+
+The control system continuously performs the following operations:
+
+\begin{itemize}
+
+\item Read sensor data
+
+\item Detect line position
+
+\item Calculate positional error
+
+\item Apply PD control algorithm
+
+\item Generate correction signals
+
+\item Adjust motor speed dynamically
+
+\end{itemize}
+
+The continuous feedback mechanism improves navigation stability and response speed.
+
+% =====================================================
+%         CONTROL SYSTEM DIAGRAM
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{control system diagram.jpeg}
+
+\caption{Closed-Loop Control System of the Robot}
+
+\end{figure}
+
+% =====================================================
+%          LINE POSITION ESTIMATION
+% =====================================================
+
+\section{Line Position Estimation}
+
+The robot estimates the line position using weighted averages from the 5-channel IR sensor array.
+
+Each sensor contributes to the overall line position according to its detection value and physical position.
+
+The line position equation is expressed as:
+
+:contentReference[oaicite:0]{index=0}
+
+Where:
+
+\begin{itemize}
+
+\item \(Sensor_i\) represents the sensor reading
+
+\item \(Weight_i\) represents the sensor position weight
+
+\end{itemize}
+
+This weighted averaging technique provides smoother and more accurate navigation performance.
+
+% =====================================================
+%           SENSOR WEIGHT TABLE
+% =====================================================
+
+\section{Sensor Weight Assignment}
+
+Each sensor in the array is assigned a positional weight based on its physical location.
+
+% =====================================================
+%           SENSOR WEIGHT TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{IR Sensor Weight Distribution}
+
+\begin{tabular}{|c|c|}
+\hline
+
+\textbf{Sensor} &
+\textbf{Weight Value} \\
+
+\hline
+
+Left Most Sensor & 0 \\
+
+Left Center Sensor & 1000 \\
+
+Center Sensor & 2000 \\
+
+Right Center Sensor & 3000 \\
+
+Right Most Sensor & 4000 \\
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+The center reference position is considered to be 2000.
+
+% =====================================================
+%             ERROR CALCULATION
+% =====================================================
+
+\section{Error Calculation}
+
+The positional error determines the deviation of the robot from the center line.
+
+The error equation is:
+
+:contentReference[oaicite:1]{index=1}
+
+Where:
+
+\begin{itemize}
+
+\item \(Position_{current}\) = Current detected line position
+
+\item \(Position_{center}\) = Calibrated center position
+
+\end{itemize}
+
+The error value may be positive or negative depending on the direction of deviation.
+
+% =====================================================
+%          PROPORTIONAL CONTROL
+% =====================================================
+
+\section{Proportional Control Analysis}
+
+The proportional controller generates correction signals proportional to the current error value.
+
+The proportional control equation is:
+
+:contentReference[oaicite:2]{index=2}
+
+Where:
+
+\begin{itemize}
+
+\item \(P\) = Proportional output
+
+\item \(K_p\) = Proportional gain
+
+\end{itemize}
+
+The proportional controller improves the response speed of the robot.
+
+However, excessive proportional gain may increase oscillation.
+
+% =====================================================
+%           DERIVATIVE CONTROL
+% =====================================================
+
+\section{Derivative Control Analysis}
+
+The derivative controller minimizes oscillation and improves movement smoothness by considering the rate of error change.
+
+The derivative equation is:
+
+:contentReference[oaicite:3]{index=3}
+
+Where:
+
+\begin{itemize}
+
+\item \(D\) = Derivative output
+
+\item \(K_d\) = Derivative gain
+
+\item \(\frac{de(t)}{dt}\) = Rate of error change
+
+\end{itemize}
+
+The derivative controller improves stability during sharp turning conditions.
+
+% =====================================================
+%              PD CONTROLLER
+% =====================================================
+
+\section{PD Controller Equation}
+
+The complete PD control equation combines proportional and derivative terms.
+
+The control equation is expressed as:
+
+:contentReference[oaicite:4]{index=4}
+
+The control output \(u(t)\) is used to generate motor speed correction values.
+
+The PD controller improves:
+
+\begin{itemize}
+
+\item Navigation stability
+
+\item Response speed
+
+\item Turning performance
+
+\item Oscillation reduction
+
+\end{itemize}
+
+% =====================================================
+%           MOTOR SPEED ANALYSIS
+% =====================================================
+
+\section{Motor Speed Correction}
+
+The correction output generated by the PD controller dynamically adjusts the speed of the motors.
+
+The motor speed equations are:
+
+:contentReference[oaicite:5]{index=5}
+
+:contentReference[oaicite:6]{index=6}
+
+Where:
+
+\begin{itemize}
+
+\item \(BaseSpeed\) = Initial motor speed
+
+\item \(Correction\) = PD control output
+
+\end{itemize}
+
+If the robot deviates toward the right side, the left motor speed increases while the right motor speed decreases.
+
+Similarly, if the robot deviates toward the left side, the opposite correction is applied.
+
+% =====================================================
+%            PWM ANALYSIS
+% =====================================================
+
+\section{PWM Signal Analysis}
+
+Pulse Width Modulation (PWM) is used for motor speed control.
+
+PWM controls the average voltage supplied to the motors by varying the duty cycle of the digital signal.
+
+The PWM duty cycle equation is:
+
+:contentReference[oaicite:7]{index=7}
+
+Where:
+
+\begin{itemize}
+
+\item \(T_{ON}\) = ON time of the signal
+
+\item \(T_{Total}\) = Total signal period
+
+\end{itemize}
+
+Higher duty cycles produce higher motor speeds.
+
+% =====================================================
+%            STABILITY ANALYSIS
+% =====================================================
+
+\section{Navigation Stability Analysis}
+
+The PD control system improves navigation stability by reducing sudden oscillations and minimizing positional error.
+
+The following factors influence system stability:
+
+\begin{itemize}
+
+\item Sensor accuracy
+
+\item PD gain tuning
+
+\item Motor response time
+
+\item Surface conditions
+
+\item Battery voltage stability
+
+\end{itemize}
+
+Proper tuning of \(K_p\) and \(K_d\) values is essential for stable robot movement.
+
+% =====================================================
+%           RESPONSE ANALYSIS
+% =====================================================
+
+\section{Response Analysis}
+
+The response characteristics of the robot include:
+
+\begin{itemize}
+
+\item Fast response time
+
+\item Reduced overshoot
+
+\item Improved turning stability
+
+\item Smooth directional correction
+
+\item Real-time navigation adjustment
+
+\end{itemize}
+
+The PD controller significantly improves overall robot performance compared to basic logic controllers.
+
+% =====================================================
+%        CONTROL RESPONSE GRAPH
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{response.jpeg}
+\caption{Control Response and Error Correction Graph}
+
+\end{figure}
+
+% =====================================================
+%        PERFORMANCE PARAMETERS
+% =====================================================
+
+\section{Performance Parameters}
+
+Several parameters were considered during performance evaluation.
+
+% =====================================================
+%        PERFORMANCE TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{Performance Parameters of the Proposed System}
+
+\begin{tabular}{|c|c|}
+\hline
+
+\textbf{Parameter} &
+\textbf{Observation} \\
+
+\hline
+
+Response Time & Fast \\
+
+Tracking Stability & High \\
+
+Oscillation & Low \\
+
+Sharp Turn Handling & Stable \\
+
+Recovery Capability & Efficient \\
+
+Power Consumption & Moderate \\
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+% =====================================================
+%           CONTROL SYSTEM ADVANTAGES
+% =====================================================
+
+\section{Advantages of the PD Control System}
+
+The implemented PD control system provides several advantages:
+
+\begin{itemize}
+
+\item Improved navigation accuracy
+
+\item Reduced oscillation
+
+\item Faster error correction
+
+\item Stable turning response
+
+\item Real-time control capability
+
+\item Efficient autonomous movement
+
+\end{itemize}
+
+% =====================================================
+%          SYSTEM LIMITATIONS
+% =====================================================
+
+\section{Limitations of the Mathematical Model}
+
+Although the control system performs efficiently, several limitations still exist.
+
+\begin{itemize}
+
+\item Environmental lighting sensitivity
+
+\item Fixed threshold dependency
+
+\item No adaptive learning capability
+
+\item Limited obstacle handling
+
+\end{itemize}
+
+Future implementations may integrate intelligent adaptive control systems.
+
+% =====================================================
+%             CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter discussed the mathematical analysis and PD-based control system of the proposed autonomous food delivery robot including error calculation, weighted position estimation, motor speed correction, PWM analysis, and navigation stability evaluation.
+
+The next chapter presents the experimental results and performance analysis of the developed robotic system.
+
+% =====================================================
+%                 CHAPTER 8
+% =====================================================
+
+\chapter{Experimental Results and Discussion}
+
+\section{Introduction}
+
+This chapter presents the experimental results and performance analysis of the proposed autonomous line following food delivery robot. Several experiments were conducted to evaluate the navigation stability, turning capability, response speed, and recovery performance of the robot under different operating conditions.
+
+The robot was tested on various black-line tracks designed to simulate indoor restaurant navigation environments.
+
+% =====================================================
+%          EXPERIMENTAL SETUP
+% =====================================================
+
+\section{Experimental Setup}
+
+The experimental setup consisted of a black navigation line placed on a white surface. The robot was tested under different path configurations including straight lines, curved paths, and sharp turns.
+
+The experiments were conducted in an indoor environment under controlled lighting conditions.
+
+% =====================================================
+%       EXPERIMENTAL SETUP FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{main robot.png}
+
+\caption{Experimental Setup of the Autonomous Delivery Robot}
+
+\end{figure}
+
+The testing environment was designed to evaluate the real-time navigation capability of the robot.
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{ex.png}
+
+\caption{Experimental Setup of the Autonomous Delivery Robot}
+
+\end{figure}
+
+% =====================================================
+%            TESTING CONDITIONS
+% =====================================================
+
+\section{Testing Conditions}
+
+The robot was tested under the following conditions:
+
+\begin{itemize}
+
+\item Straight Line Navigation
+
+\item Curved Path Navigation
+
+\item Sharp Turn Navigation
+
+\item Line Recovery Testing
+
+\item Continuous Path Following
+
+\item Variable Speed Testing
+
+\end{itemize}
+
+Each experiment was repeated multiple times to ensure result consistency.
+
+% =====================================================
+%          STRAIGHT LINE TEST
+% =====================================================
+
+\section{Straight Line Navigation Test}
+
+The straight-line test was conducted to evaluate the robot's ability to maintain stable forward movement.
+
+During the experiment, the robot successfully followed the straight black line with minimal oscillation and smooth directional correction.
+
+The PD controller significantly improved movement stability and reduced unnecessary deviations.
+
+% =====================================================
+%        STRAIGHT LINE FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{straight.jpeg}
+
+\caption{Straight Line Navigation Test}
+
+\end{figure}
+
+% =====================================================
+%          CURVED PATH TEST
+% =====================================================
+
+\section{Curved Path Navigation Test}
+
+The curved path test was performed to evaluate the turning capability and navigation accuracy of the robot.
+
+The robot successfully detected curved line segments and dynamically adjusted motor speeds using the PD control system.
+
+The sensor array provided stable line detection throughout the turning process.
+
+% =====================================================
+%        CURVED PATH FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{curved line.jpeg}
+
+\caption{Curved Path Navigation Test}
+
+\end{figure}
+
+% =====================================================
+%          SHARP TURN TEST
+% =====================================================
+
+\section{Sharp Turn Navigation Test}
+
+The sharp turn experiment evaluated the robot's performance during sudden directional changes.
+
+The robot demonstrated stable turning performance through dynamic motor speed correction and real-time sensor feedback.
+
+Although minor oscillations were observed during high-speed turning, the robot successfully completed the navigation path.
+
+% =====================================================
+%       SHARP TURN FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{corner.png}
+
+\caption{Sharp Turn Navigation Test}
+
+\end{figure}
+
+% =====================================================
+%         LINE RECOVERY TEST
+% =====================================================
+
+
+
+% =====================================================
+%           RESPONSE ANALYSIS
+% =====================================================
+
+\section{Response Time Analysis}
+
+The response time of the robot was evaluated by observing the correction delay during turning and directional changes.
+
+The PD controller provided fast response characteristics with minimal delay.
+
+The system demonstrated efficient real-time correction capability during continuous movement.
+
+% =====================================================
+%       RESPONSE GRAPH FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{reponse time.png}
+
+\caption{Response Time Analysis of the Robot}
+
+\end{figure}
+
+% =====================================================
+%          STABILITY ANALYSIS
+% =====================================================
+
+\section{Navigation Stability Analysis}
+
+The stability of the robot was analyzed by observing oscillation levels during movement.
+
+The PD controller significantly reduced oscillation and improved directional stability compared to basic logic-based navigation systems.
+
+The robot maintained smooth movement on both straight and curved tracks.
+
+% =====================================================
+%       STABILITY GRAPH FIGURE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{Navigation Stability Analysis.png}
+
+\caption{Navigation Stability Analysis}
+
+\end{figure}
+
+% =====================================================
+%         PERFORMANCE COMPARISON
+% =====================================================
+
+\section{Performance Comparison}
+
+The performance of the proposed robot was compared with existing low-cost line following robots.
+
+% =====================================================
+%      COMPARISON TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{Comparative Performance Analysis}
+
+\begin{tabular}{|c|c|c|}
+\hline
+
+\textbf{Feature} &
+\textbf{Existing Systems} &
+\textbf{Proposed System} \\
+
+\hline
+
+Sensor Count & 3 Sensors & 5 Sensors \\
+
+Navigation Stability & Moderate & High \\
+
+Control Method & Basic Logic & PD Control \\
+
+Recovery System & Weak & Efficient \\
+
+Turning Accuracy & Moderate & Improved \\
+
+Implementation Cost & Medium & Low \\
+
+Response Time & Moderate & Fast \\
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+The proposed system demonstrated improved navigation accuracy and response performance compared to traditional low-cost robots.
+
+% =====================================================
+%          PERFORMANCE PARAMETERS
+% =====================================================
+
+\section{Performance Parameters}
+
+The major performance parameters observed during experimentation are summarized below.
+
+% =====================================================
+%      PERFORMANCE TABLE
+% =====================================================
+
+\begin{table}[H]
+\centering
+\caption{Observed Performance Parameters}
+
+\begin{tabular}{|c|c|}
+\hline
+
+\textbf{Parameter} &
+\textbf{Observation} \\
+
+\hline
+
+Line Tracking Accuracy & High \\
+
+Turning Stability & Good \\
+
+Response Speed & Fast \\
+
+Oscillation & Low \\
+
+Recovery Capability & Efficient \\
+
+Power Consumption & Moderate \\
+
+Navigation Reliability & High \\
+
+\hline
+
+\end{tabular}
+
+\end{table}
+
+% =====================================================
+%          ADVANTAGES OBSERVED
+% =====================================================
+
+\section{Advantages Observed During Testing}
+
+Several advantages were observed during experimental evaluation:
+
+\begin{itemize}
+
+\item Stable autonomous navigation
+
+\item Fast directional correction
+
+\item Efficient line recovery
+
+\item Smooth turning performance
+
+\item Low oscillation movement
+
+\item Real-time control response
+
+\item Compact and lightweight structure
+
+\end{itemize}
+
+% =====================================================
+%          DISCUSSION
+% =====================================================
+
+\section{Discussion}
+
+The experimental results indicate that the proposed autonomous food delivery robot successfully achieved stable line following performance under different testing conditions.
+
+The integration of a 5-channel IR sensor array with PD-based control significantly improved navigation stability and turning response.
+
+The autonomous recovery mechanism also enhanced the reliability of the system during temporary line loss situations.
+
+Although minor oscillations were observed during high-speed sharp turns, the overall system performance remained stable and efficient.
+
+The developed robot demonstrates the practical feasibility of low-cost autonomous food delivery systems for smart restaurant environments.
+
+% =====================================================
+%          LIMITATIONS
+% =====================================================
+
+\section{Experimental Limitations}
+
+Despite successful performance, several limitations were observed during experimentation.
+
+\begin{itemize}
+
+\item Sensitivity to external lighting conditions
+
+\item Reduced performance on highly reflective surfaces
+
+\item Limited obstacle handling capability
+
+\item Battery voltage fluctuation during extended operation
+
+\end{itemize}
+
+Future improvements may further enhance the robustness of the system.
+
+% =====================================================
+%             CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter presented the experimental results and performance evaluation of the proposed autonomous food delivery robot including navigation stability, turning performance, response analysis, and comparative evaluation.
+
+The next chapter discusses the challenges encountered during implementation and possible future improvements of the proposed system.
+
+% =====================================================
+%                 CHAPTER 9
+% =====================================================
+
+\chapter{Challenges and Limitations}
+
+\section{Introduction}
+
+This chapter discusses the major challenges encountered during the design, implementation, and testing phases of the proposed autonomous line following food delivery robot.
+
+Several technical and mechanical difficulties were identified throughout the development process. These challenges influenced navigation stability, sensor accuracy, motor performance, and overall system reliability.
+
+% =====================================================
+%         SENSOR RELATED CHALLENGES
+% =====================================================
+
+\section{Sensor Related Challenges}
+
+The infrared sensor array was highly sensitive to environmental lighting conditions and surface reflections.
+
+During experimentation, excessive ambient light occasionally affected sensor readings and reduced line detection accuracy.
+
+Different surface textures also produced inconsistent infrared reflections, resulting in sensor noise and unstable navigation under certain conditions.
+
+% =====================================================
+%         MOTOR RELATED CHALLENGES
+% =====================================================
+
+\section{Motor Synchronization Issues}
+
+The robot uses two N20 geared motors for differential drive movement.
+
+Although both motors were identical in specification, slight variations in rotational speed were observed during operation. These speed mismatches occasionally caused directional deviation and unstable movement.
+
+Repeated calibration and PWM adjustment were required to minimize synchronization problems.
+
+% =====================================================
+%         POWER RELATED CHALLENGES
+% =====================================================
+
+\section{Power Supply Fluctuation}
+
+Battery voltage fluctuation was another major challenge during implementation.
+
+As the battery charge decreased, the motor torque and response speed were affected. This occasionally reduced navigation stability during sharp turns and continuous movement.
+
+Stable power management was necessary to maintain consistent robot performance.
+
+% =====================================================
+%         MECHANICAL CHALLENGES
+% =====================================================
+
+\section{Mechanical Structure Challenges}
+
+Several mechanical implementation challenges were encountered during chassis construction and component mounting.
+
+These challenges included:
+
+\begin{itemize}
+
+\item Sensor alignment issues
+
+\item Wheel balancing problems
+
+\item Chassis vibration
+
+\item Loose wiring connections
+
+\item Weight distribution imbalance
+
+\end{itemize}
+
+Proper component positioning and repeated structural adjustments were required to improve robot stability.
+
+% =====================================================
+%         PD TUNING CHALLENGES
+% =====================================================
+
+\section{PD Controller Tuning}
+
+Selecting suitable PD control parameters was one of the most critical challenges.
+
+Improper proportional gain caused excessive oscillation, while incorrect derivative gain reduced response speed.
+
+Multiple experimental tests were conducted to determine stable \(K_p\) and \(K_d\) values for efficient navigation.
+
+% =====================================================
+%         SHARP TURN CHALLENGES
+% =====================================================
+
+\section{Sharp Turn Navigation Challenges}
+
+The robot occasionally experienced instability during sharp turns at high speed.
+
+Fast directional changes increased positional error and temporarily affected sensor detection accuracy.
+
+Although the PD controller significantly improved turning performance, minor oscillations still occurred during aggressive turning conditions.
+
+% =====================================================
+%         RECOVERY CHALLENGES
+% =====================================================
+
+\section{Line Recovery Challenges}
+
+The autonomous recovery mechanism improved navigation reliability, but recovery delays were occasionally observed when the robot lost the line completely.
+
+Complex track conditions sometimes required additional recovery time before stable navigation could resume.
+
+% =====================================================
+%         SOFTWARE CHALLENGES
+% =====================================================
+
+\section{Software Implementation Challenges}
+
+Several software-related challenges were also encountered during implementation.
+
+These included:
+
+\begin{itemize}
+
+\item Sensor threshold tuning
+
+\item Real-time data processing
+
+\item PWM optimization
+
+\item Error filtering
+
+\item Noise reduction
+
+\end{itemize}
+
+Continuous debugging and software optimization were necessary to improve system performance.
+
+% =====================================================
+%         OVERALL LIMITATIONS
+% =====================================================
+
+\section{Overall System Limitations}
+
+Although the robot performed successfully, several limitations still remain.
+
+\begin{itemize}
+
+\item No obstacle avoidance capability
+
+\item Dependence on predefined tracks
+
+\item Sensitivity to environmental lighting
+
+\item Limited battery backup time
+
+\item No wireless monitoring system
+
+\item No adaptive machine learning integration
+
+\end{itemize}
+
+These limitations may be addressed in future research and development phases.
+
+% =====================================================
+%         CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter discussed the major implementation challenges and system limitations encountered during the development of the autonomous food delivery robot.
+
+The next chapter presents possible future improvements and advanced features that may further enhance system performance and intelligence.
+
+% =====================================================
+%                 CHAPTER 10
+% =====================================================
+
+\chapter{Future Improvements}
+
+\section{Introduction}
+
+Although the proposed autonomous food delivery robot demonstrated stable navigation and efficient line following capability, several improvements can further enhance its intelligence, reliability, and practical usability.
+
+This chapter presents potential future developments and advanced features that may be integrated into the system.
+
+% =====================================================
+%         FULL PID CONTROLLER
+% =====================================================
+
+\section{Full PID Controller Implementation}
+
+The current system uses a proportional-derivative (PD) controller for navigation.
+
+Future versions of the robot may implement a full PID controller by introducing an integral component to further minimize steady-state error and improve long-term stability.
+
+The complete PID equation is given below:
+
+:contentReference[oaicite:0]{index=0}
+
+The integral term may improve navigation precision under complex track conditions.
+
+% =====================================================
+%         OBSTACLE AVOIDANCE
+% =====================================================
+
+\section{Obstacle Avoidance System}
+
+The current robot follows predefined paths but cannot detect physical obstacles.
+
+Future implementations may integrate ultrasonic or LiDAR sensors to detect nearby objects and avoid collisions automatically.
+
+Obstacle avoidance capability would significantly improve real-world usability in restaurant environments.
+
+% =====================================================
+%         CAMERA BASED TRACKING
+% =====================================================
+
+\section{Camera-Based Navigation}
+
+Future systems may replace infrared sensors with computer vision and camera-based tracking systems.
+
+Camera-based navigation can improve path detection accuracy and support more complex navigation environments.
+
+Advanced image processing algorithms may also enable dynamic path recognition and intelligent route planning.
+
+% =====================================================
+%         AI INTEGRATION
+% =====================================================
+
+\section{Artificial Intelligence Integration}
+
+Artificial intelligence and machine learning techniques may be integrated into future versions of the robot.
+
+AI-based systems can improve:
+
+\begin{itemize}
+
+\item Adaptive navigation
+
+\item Dynamic path optimization
+
+\item Self-learning capability
+
+\item Smart decision making
+
+\item Autonomous environment analysis
+
+\end{itemize}
+
+Machine learning models may allow the robot to improve navigation performance automatically through experience.
+
+% =====================================================
+%         IoT SYSTEM
+% =====================================================
+
+\section{IoT and Wireless Monitoring}
+
+Future systems may include wireless communication and IoT integration for real-time monitoring and remote control.
+
+WiFi or Bluetooth modules may allow:
+
+\begin{itemize}
+
+\item Mobile application control
+
+\item Real-time monitoring
+
+\item Wireless diagnostics
+
+\item Restaurant management integration
+
+\item Cloud-based data analysis
+
+\end{itemize}
+
+IoT integration can significantly improve automation efficiency in smart restaurant systems.
+
+% =====================================================
+%         VOICE CONTROL
+% =====================================================
+
+\section{Voice Command System}
+
+Voice assistant technology may be integrated into future implementations.
+
+The robot could receive voice commands for:
+
+\begin{itemize}
+
+\item Table selection
+
+\item Delivery control
+
+\item Start and stop operations
+
+\item Navigation instructions
+
+\end{itemize}
+
+Voice interaction may improve user convenience and accessibility.
+
+% =====================================================
+%         ADVANCED POWER MANAGEMENT
+% =====================================================
+
+\section{Advanced Power Management}
+
+Future versions may include intelligent battery management systems to improve energy efficiency and backup time.
+
+Possible improvements include:
+
+\begin{itemize}
+
+\item Automatic charging system
+
+\item Battery level monitoring
+
+\item Power optimization algorithms
+
+\item Low-power operation mode
+
+\end{itemize}
+
+These improvements may increase operational reliability during long-term use.
+
+% =====================================================
+%         ROBOTIC ARM/TRAY
+% =====================================================
+
+\section{Automated Food Carrying Tray}
+
+An advanced robotic tray system may be added for automatic food loading and unloading operations.
+
+This feature would make the robot more suitable for practical restaurant deployment.
+
+% =====================================================
+%         MULTI-PATH NAVIGATION
+% =====================================================
+
+\section{Multi-Path Navigation System}
+
+Future systems may support multiple navigation paths and dynamic route selection.
+
+Advanced navigation systems may allow the robot to:
+
+\begin{itemize}
+
+\item Select optimized delivery paths
+
+\item Avoid traffic congestion
+
+\item Navigate multiple destinations
+
+\item Perform autonomous path switching
+
+\end{itemize}
+
+% =====================================================
+%         FUTURE ROBOT IMAGE
+% =====================================================
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{future.png}
+\caption{Conceptual Future Development of the Autonomous Delivery Robot}
+
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.9\textwidth]{future 2.jpeg}
+\caption{Conceptual Future Development of the Autonomous Delivery Robot}
+
+\end{figure}
+
+% =====================================================
+%         CHAPTER SUMMARY
+% =====================================================
+
+\section{Chapter Summary}
+
+This chapter discussed several future improvements and advanced technologies that may further enhance the intelligence, efficiency, and practical usability of the proposed autonomous food delivery robot.
+
+The next chapter presents the final conclusion of the thesis.
+
+% =====================================================
+%                 CHAPTER 11
+% =====================================================
+
+\chapter{Conclusion}
+
+\section{Conclusion}
+
+This thesis presented the design and implementation of an autonomous line following food delivery robot for smart restaurant services using a 5-channel infrared sensor array and Arduino Nano microcontroller.
+
+The proposed system successfully demonstrated stable autonomous navigation through real-time line detection and proportional-derivative (PD) control. The robot was capable of following predefined paths accurately while maintaining smooth directional correction and efficient turning performance.
+
+The integration of a 5-channel IR sensor array improved line detection accuracy, while the PD control algorithm significantly reduced oscillation and enhanced movement stability.
+
+Experimental results confirmed that the robot could efficiently navigate straight paths, curved tracks, and sharp turns with reliable line recovery capability.
+
+The proposed robotic system offers several advantages including:
+
+\begin{itemize}
+
+\item Low implementation cost
+
+\item Compact mechanical design
+
+\item Stable autonomous navigation
+
+\item Efficient line recovery mechanism
+
+\item Real-time control response
+
+\item Low power consumption
+
+\end{itemize}
+
+The developed system demonstrates the practical feasibility of low-cost autonomous food delivery robots for smart restaurant automation and indoor transportation applications.
+
+Although several limitations remain, the proposed system provides a strong foundation for future intelligent robotic research and development.
+
+Future integration of artificial intelligence, obstacle avoidance, IoT communication, and computer vision technologies may significantly improve the capability and intelligence of the robotic platform.
+
+% =====================================================
+%         FINAL CONTRIBUTION
+% =====================================================
+
+\section{Research Contributions}
+
+The major contributions of this thesis include:
+
+\begin{itemize}
+
+\item Development of a low-cost autonomous food delivery robot
+
+\item Implementation of real-time PD-based navigation control
+
+\item Integration of a 5-channel IR sensor array for accurate line tracking
+
+\item Design of an autonomous line recovery mechanism
+
+\item Experimental evaluation of navigation stability and performance
+
+\item Comparative analysis with existing low-cost robotic systems
+
+\end{itemize}
+
+\chapter*{References}
+
+\begin{enumerate}
+
+\item R. Siegwart, I. R. Nourbakhsh, and D. Scaramuzza,
+\textit{Introduction to Autonomous Mobile Robots},
+2nd ed. Cambridge, MA, USA: MIT Press, 2011.
+
+\item K. Ogata,
+\textit{Modern Control Engineering},
+5th ed. Upper Saddle River, NJ, USA: Prentice Hall, 2010.
+
+\item B. C. Kuo and F. Golnaraghi,
+\textit{Automatic Control Systems},
+9th ed. New York, NY, USA: Wiley, 2014.
+
+\item Arduino,
+“Arduino Nano Documentation,”
+Arduino Official Documentation, 2025.
+[Online]. Available:
+\url{https://docs.arduino.cc/hardware/nano}
+[Accessed: May 11, 2026].
+
+\item Microchip Technology Inc.,
+“ATmega328P Datasheet,”
+2024.
+[Online]. Available:
+\url{https://www.microchip.com/en-us/product/atmega328p}
+[Accessed: May 11, 2026].
+
+\item STMicroelectronics,
+“L298 Dual Full-Bridge Driver Datasheet,”
+2024.
+[Online]. Available:
+\url{https://www.st.com}
+[Accessed: May 11, 2026].
+
+\item Pololu Corporation,
+“QTR Reflectance Sensor Array User’s Guide,”
+2025.
+[Online]. Available:
+\url{https://www.pololu.com/category/123/qtr-reflectance-sensors}
+[Accessed: May 11, 2026].
+
+\item M. R. Hasan, M. M. Rahman, and S. Islam,
+“Autonomous Restaurant Service Robot Using Line Following Mechanism,”
+in \textit{Proc. IEEE Int. Conf. Robotics and Automation},
+2022, pp. 245--250.
+
+\item R. Mohanraj and P. Senthilkumar,
+“Design and Implementation of Line Following Robot Using PID Controller,”
+\textit{International Journal of Engineering Research \& Technology},
+vol. 10, no. 5, pp. 112--118, 2021.
+
+\item N. S. Nise,
+\textit{Control Systems Engineering},
+8th ed. Hoboken, NJ, USA: Wiley, 2019.
+
+\item OpenAI,
+“ChatGPT Artificial Intelligence Assistant,”
+2025.
+[Online]. Available:
+\url{https://chat.openai.com}
+[Accessed: May 11, 2026].
+
+\item Google Scholar,
+“Research Articles on Autonomous Line Following Robots,”
+2025.
+[Online]. Available:
+\url{https://scholar.google.com}
+[Accessed: May 11, 2026].
+
+\item Robotics Research Group,
+“Navigation Stability Analysis of Autonomous Mobile Robots,”
+\textit{Journal of Intelligent Robotic Systems},
+vol. 87, no. 3, pp. 455--468, 2023.
+
+\item Embedded Systems Academy,
+“PWM Motor Speed Control Techniques,”
+2024.
+[Online]. Available:
+\url{https://www.esacademy.com}
+[Accessed: May 11, 2026].
+
+\item Texas Instruments,
+“Motor Driver Fundamentals,”
+2024.
+[Online]. Available:
+\url{https://www.ti.com/motor-drivers}
+[Accessed: May 11, 2026].
+
+\end{enumerate}
+
+
+\end{document}
